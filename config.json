@@ -1,5 +1,21 @@
 {
-  "BotToken": "8305311135:AAFNrx08XIpZHIPmc65scvp1Bx0dc9jDvsE",
-  "ChatID": "268200899",
-  "old_IP_Address": "111.111.11.11"
+  "target_host": "kunde.example.com",
+  "timeout_sec": 2.0,
+  "tests": [
+    {
+      "port": 50000,
+      "protocol": "tcp",
+      "name": "Test TCP 1"
+    },
+    {
+      "port": 50001,
+      "protocol": "udp",
+      "name": "Test UDP 1"
+    },
+    {
+      "port": 50002,
+      "protocol": "tcp",
+      "name": "Test TCP 2"
+    }
+  ]
 }
