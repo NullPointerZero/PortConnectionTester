@@ -12,8 +12,8 @@ def load_config(path):
 
 def test_udp(host, port, timeout):
     start = time.time()
-    with socket.socket(socket.AF_INET, socket.SOCK_DGRA) as s:
-        s.settimout(timeout)
+    with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
+        s.settimeout(timeout)
         try:
             s.sendto(b"PING_UDP", (host, port))
             data, addr = s.recvfrom(1024)
@@ -48,17 +48,37 @@ def main():
         name = t.get("name", f"Port {port}/{proto}")
 
         if (proto == "udp"):
-            # TODO UDP Testfunction
-            print("udp will be testet here")
-        if (proto == "tcp"):
+            ok, latency, info = test_udp(host, port, timeout)
+        elif (proto == "tcp"):
             ## TODO TCP Testfunction
             print("tcp will be tested here")
+            continue
+        else:
+            print(f"unbekanntes Protokoll in Config: {proto} (Port {port})")
+            continue
 
         print(port)
         print(proto)
         print(name)
         print("-" * 60)
 
+        results.append({
+            "name" : name,
+            "port" : port,
+            "protocol" : proto,
+            "ok" : ok,
+            "latency" : latency,
+            "info" : info
+        })
+
+        print("\nErgebnisübersicht")
+        print("-" * 60)
+        print(f"{'Name':25} {'Proto':5} {'Port':5} {'Status':8} {'Latenz [ms]':12} Info")
+
+        for r in results:
+            status = "OK" if r["ok"] else "FAIL"
+            latency = f"{r['latency']: .1f}" if r["latency"] is not None else "-"
+            print(f"{r['name'][:25]:25} {r['protocol'].upper():5} {r['port']:5} {status:8} {latency:12} {r['info']}")
 
 
 if __name__ == "__main__":
