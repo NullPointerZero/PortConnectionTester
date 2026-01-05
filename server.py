@@ -39,8 +39,17 @@ def tcp_server(port, name, stop_event):
         s.listen()
         print(f"[TCP] {name} listening on {host}:{port}")
 
-        while True:
-            conn, addr = s.accept()
+                print(f"[TCP] {name} listening on {host}:{port}")
+
+
+        while not stop_event.is_set():
+            try:
+                conn, addr = s.accept()
+            except socket.timeout:
+                continue
+            except OSError:
+                break  # Socket wurde geschlossen
+
             threading.Thread(
                 target=handle_tcp_client,
                 args=(conn, addr, name),
