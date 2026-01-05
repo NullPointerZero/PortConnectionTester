@@ -10,6 +10,20 @@ def load_config(path):
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
 
+def test_tcp(host, port, timeout):
+    start = time.time()
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        try:
+            s.connect((host, port))
+            s.sendall(b"PING_TCP")
+            data = s.recv(1024)
+            latency_ms = (time.time() - start) * 1000
+            return True, latency_ms, data.decode(errors="replace")
+        except Exception as e:
+            return False, None, str(e)
+
+
+
 def test_udp(host, port, timeout):
     start = time.time()
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:

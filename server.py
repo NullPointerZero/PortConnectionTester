@@ -32,6 +32,32 @@ def udp_server (port, name, stop_event):
 
     print(f"[UDP] {name} sauber beendet")
 
+def tcp_server(port, name):
+    host = "0.0.0.0"
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.bind((hist, port))
+        s.listen()
+        print(f"[TCP] {name} listening on {host}:{port}")
+        while True:
+            conn, addr = s.accept()
+            threading.Thread(
+                target=handle_tcp_client,
+                args=(conn, addr, name),
+                daemon=True
+            ).start()
+
+def handle_tcp_client(conn, addr, name):
+    print(f"[TCP] Connection {addr}, on {name}")
+    try:
+        data = conn.recv(1024)
+        if data:
+            print(f"[TCP] Received from {addr}: {data!r}")
+            response = b"OK_TCP: " + data
+            conn.sendall(response)
+    except Exception as e:
+        print(f"[TCP] Error at {addr} on {name}: {e}")
+    finally:
+        conn.close()
 
 def main():
 
