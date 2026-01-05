@@ -39,9 +39,6 @@ def tcp_server(port, name, stop_event):
         s.listen()
         print(f"[TCP] {name} listening on {host}:{port}")
 
-                print(f"[TCP] {name} listening on {host}:{port}")
-
-
         while not stop_event.is_set():
             try:
                 conn, addr = s.accept()
@@ -55,6 +52,10 @@ def tcp_server(port, name, stop_event):
                 args=(conn, addr, name),
                 daemon=True
             ).start()
+
+        print(f"[TCP] {name} clean exit")
+
+
 
 def handle_tcp_client(conn, addr, name):
     print(f"[TCP] Connection {addr}, on {name}")

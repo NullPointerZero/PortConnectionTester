@@ -69,10 +69,6 @@ def main():
             print(f"unbekanntes Protokoll in Config: {proto} (Port {port})")
             continue
 
-        print(port)
-        print(proto)
-        print(name)
-        print("-" * 60)
 
         results.append({
             "name" : name,
@@ -83,14 +79,14 @@ def main():
             "info" : info
         })
 
-        print("\nErgebnisübersicht")
-        print("-" * 60)
-        print(f"{'Name':25} {'Proto':5} {'Port':5} {'Status':8} {'Latenz [ms]':12} Info")
+    print("\nErgebnisübersicht")
+    print("-" * 60)
+    print(f"{'Name':25} {'Proto':5} {'Port':5} {'Status':8} {'Latenz [ms]':12} Info")
 
-        for r in results:
-            status = "OK" if r["ok"] else "FAIL"
-            latency = f"{r['latency']: .1f}" if r["latency"] is not None else "-"
-            print(f"{r['name'][:25]:25} {r['protocol'].upper():5} {r['port']:5} {status:8} {latency:12} {r['info']}")
+    for r in results:
+        status = "OK" if r["ok"] else "FAIL"
+        latency = f"{r['latency']: .1f}" if r["latency"] is not None else "-"
+        print(f"{r['name'][:25]:25} {r['protocol'].upper():5} {r['port']:5} {status:8} {latency:12} {r['info']}")
 
 
 if __name__ == "__main__":
