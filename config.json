@@ -21,8 +21,8 @@
       "port": 50003,
       "protocol": "tcp",
       "name": "Robot Manager - Test"
-    }
-        {
+    },
+    {
       "port": 50004,
       "protocol": "tcp",
       "name": "Email Service - Test"
