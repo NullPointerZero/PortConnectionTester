@@ -1,5 +1,5 @@
 {
-  "target_host": "kunde.example.com",
+  "target_host": "127.0.0.1",
   "timeout_sec": 2.0,
   "tests": [
     {
@@ -10,12 +10,22 @@
     {
       "port": 50001,
       "protocol": "udp",
-      "name": "Test UDP 1"
+      "name": "Test UDP 2"
     },
     {
       "port": 50002,
+      "protocol": "udp",
+      "name": "Test UDP 3"
+    },
+    {
+      "port": 50003,
       "protocol": "tcp",
-      "name": "Test TCP 2"
+      "name": "Robot Manager - Test"
+    }
+        {
+      "port": 50004,
+      "protocol": "tcp",
+      "name": "Email Service - Test"
     }
   ]
 }
