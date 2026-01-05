@@ -64,9 +64,7 @@ def main():
         if (proto == "udp"):
             ok, latency, info = test_udp(host, port, timeout)
         elif (proto == "tcp"):
-            ## TODO TCP Testfunction
-            print("tcp will be tested here")
-            continue
+            ok, latency, info = test_tcp(host, port, timeout)
         else:
             print(f"unbekanntes Protokoll in Config: {proto} (Port {port})")
             continue
